@@ -52,3 +52,10 @@ services:
     container_name: grafana
     ports:
      - 3000:3000
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
