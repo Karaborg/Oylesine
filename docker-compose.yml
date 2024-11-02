@@ -35,3 +35,9 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: broker
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker:9092 # SSL LISTENER!
+      
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    ports:
+     - 3000:3000
