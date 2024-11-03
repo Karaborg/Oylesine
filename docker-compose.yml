@@ -52,6 +52,9 @@ services:
     container_name: grafana
     ports:
      - 3000:3000
+    volumes:
+      - ./Grafana-Storage/grafana.db:/var/lib/grafana/grafana.db
+    command: ["cd", "/usr/share/grafana/bin/", "&&", "grafana-cli", "admin", "reset-admin-password", "${GRAFANA_ADMIN_PASSWORD}"]
   prometheus:
     image: prom/prometheus
     container_name: prometheus
