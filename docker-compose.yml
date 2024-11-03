@@ -76,8 +76,9 @@ services:
       context: .
       dockerfile: ./Python-Producer/Dockerfile
     depends_on:
-      - broker
-    restart: on-failure
+      - create_topic
+    restart: always
+    #command: sh -c "sleep 10"
     volumes:
       - ./Python-Producer/pushMessage.py:/usr/src/app/pushMessage.py
     env_file:
