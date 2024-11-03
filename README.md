@@ -7,3 +7,19 @@
 - To connect into container: `docker exec -it <CONTAINER_ID>/<CONTAINER_NAME> bash`
     > To exit from container: `exit`
 - 
+
+
+### .env Variables
+```
+# GRAFANA CONFIGURATIONS 
+GRAFANA_ADMIN_PASSWORD=
+
+# KAFKA CONFIGURATIONS
+TOPIC_NAME=
+PARTITION_COUNT=
+REPLICA_COUNT=
+CONSUMER_GROUP_ID=
+
+# INFLUX CONFIGURATIONS
+DATABASE_NAME=
+```
