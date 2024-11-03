@@ -70,8 +70,8 @@ services:
     command: ["kafka-topics", "--bootstrap-server", "broker:9092", "--create", "--topic", "${TOPIC_NAME}", "--partitions", "${PARTITION_COUNT}", "--replication-factor", "${REPLICA_COUNT}"]
     depends_on:
       - broker
-  python:
-    container_name: python-producer
+  producer:
+    container_name: producer
     build:
       context: .
       dockerfile: ./Python-Producer/Dockerfile
@@ -87,3 +87,21 @@ services:
     image: 'influxdb:1.8'
     ports:
       - '8086:8086'
+    environment:
+      INFLUXDB_DB: "${DATABASE_NAME}"
+  consumer:
+    container_name: consumer
+    build:
+      context: .
+      dockerfile: ./Python-Consumer/Dockerfile
+    depends_on:
+      - broker
+      - influxdb
+    restart: always
+    environment:
+      - KAFKA_BROKER=broker:9092
+      - TOPIC=${TOPIC_NAME}
+      - CONSUMER_GROUP_ID=${CONSUMER_GROUP_ID}
+      - INFLUXDB_HOST=influxdb
+      - INFLUXDB_PORT=8086
+      - INFLUXDB_DB=${DATABASE_NAME}
