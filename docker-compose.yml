@@ -82,3 +82,8 @@ services:
       - ./Python-Producer/pushMessage.py:/usr/src/app/pushMessage.py
     env_file:
       - ./.env
+  influxdb:
+    container_name: influxdb
+    image: 'influxdb:1.8'
+    ports:
+      - '8086:8086'
