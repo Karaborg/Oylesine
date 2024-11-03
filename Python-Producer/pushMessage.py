@@ -34,7 +34,7 @@ try:
             "tester": "furkan"
         }
         # Get a random partition within the specified range
-        partition = random.randint(min_partition, max_partition)
+        partition = random.randint(min_partition, (max_partition-1))
         
         # Send the message to the selected partition
         producer.send(topic, value=data, partition=partition)

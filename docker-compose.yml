@@ -76,8 +76,8 @@ services:
       context: .
       dockerfile: ./Python-Producer/Dockerfile
     depends_on:
-      - broker
-    restart: on-failure
+      - create_topic
+    restart: always
     volumes:
       - ./Python-Producer/pushMessage.py:/usr/src/app/pushMessage.py
     env_file:
