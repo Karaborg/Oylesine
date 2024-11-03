@@ -78,7 +78,6 @@ services:
     depends_on:
       - create_topic
     restart: always
-    #command: sh -c "sleep 10"
     volumes:
       - ./Python-Producer/pushMessage.py:/usr/src/app/pushMessage.py
     env_file:
