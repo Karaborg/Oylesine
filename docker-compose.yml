@@ -70,3 +70,15 @@ services:
     command: ["kafka-topics", "--bootstrap-server", "broker:9092", "--create", "--topic", "${TOPIC_NAME}", "--partitions", "${PARTITION_COUNT}", "--replication-factor", "${REPLICA_COUNT}"]
     depends_on:
       - broker
+  python:
+    container_name: python-producer
+    build:
+      context: .
+      dockerfile: ./Python-Producer/Dockerfile
+    depends_on:
+      - broker
+    restart: on-failure
+    volumes:
+      - ./Python-Producer/pushMessage.py:/usr/src/app/pushMessage.py
+    env_file:
+      - ./.env
