@@ -10,8 +10,6 @@ load_dotenv()
 KAFKA_BROKER = 'broker:9092'
 TOPIC = os.getenv("TOPIC_NAME")
 
-print(f"TOPIC to: {TOPIC}")
-
 # InfluxDB settings
 INFLUXDB_HOST = 'influxdb'
 INFLUXDB_PORT = 8086

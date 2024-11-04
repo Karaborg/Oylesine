@@ -79,10 +79,6 @@ services:
       - create_topic
       - centos
     restart: always
-    volumes:
-      - ./Python-Producer/pushMessage.py:/usr/src/app/pushMessage.py
-    env_file:
-      - ./.env
   influxdb:
     container_name: influxdb
     image: 'influxdb:1.8'
@@ -101,11 +97,3 @@ services:
       - influxdb
       - producer
       - create_topic
-    environment:
-      - KAFKA_BROKER=broker:9092
-      - TOPIC=${TOPIC_NAME}
-      - INFLUXDB_HOST=influxdb
-      - INFLUXDB_PORT=8086
-      - INFLUXDB_DB=${DATABASE_NAME}
-    env_file:
-      - ./.env
