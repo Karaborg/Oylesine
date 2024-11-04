@@ -14,7 +14,7 @@ bootstrap_servers = 'broker:9092'
 topic = os.getenv("TOPIC_NAME")
 
 # Get the max partition number from the environment file
-max_partition = int(os.getenv("PARTITION_COUNT", 0))  # Default to 5 if not set in .env
+max_partition = int(os.getenv("PARTITION_COUNT", 5))  # Default to 5 if not set in .env
 min_partition = 0  # Assuming partition range starts from 0
 
 # Create Kafka producer
