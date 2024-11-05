@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # Copy the Python script into the container
 COPY ./Python-Consumer/consumer.py ./
+COPY ./Kafka/waitForKafka.py ./
 COPY ./Python-Consumer/requirements.txt ./
 COPY ./.env ./
 
@@ -13,4 +14,4 @@ COPY ./.env ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run the consumer
-CMD ["python", "consumer.py"]
+CMD ["bash", "-c", "python waitForKafka.py && python consumer.py"]
