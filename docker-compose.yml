@@ -104,8 +104,6 @@ services:
       - 9600:9600
     volumes:
       - ./.env:/usr/share/opensearch/.env
-      #- opensearch-data:/usr/share/opensearch/data
-      #- ./opensearch/config:/usr/share/logstash/config
     env_file:
       - ./.env
   opensearch-dashboard:
@@ -117,5 +115,3 @@ services:
       - opensearch
     environment:
       OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
-    #volumes:
-    #  - ./opensearch-dashboard/config:/usr/share/opensearch-dashboards/config
