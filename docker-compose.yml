@@ -62,22 +62,11 @@ services:
       - "9090:9090"
     volumes:
       - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-  create_topic:
-    container_name: create-topic
-    image: confluentinc/cp-kafka:7.0.1
-    environment:
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    command: ["kafka-topics", "--bootstrap-server", "broker:9092", "--create", "--topic", "${TOPIC_NAME}", "--partitions", "${PARTITION_COUNT}", "--replication-factor", "${REPLICA_COUNT}"]
-    depends_on:
-      - broker
   producer:
     container_name: producer
     build:
       context: .
       dockerfile: ./Python-Producer/Dockerfile
-    depends_on:
-      - create_topic
-      - centos
     restart: always
   influxdb:
     container_name: influxdb
@@ -93,7 +82,5 @@ services:
       dockerfile: ./Python-Consumer/Dockerfile
     restart: always
     depends_on:
-      - broker
       - influxdb
       - producer
-      - create_topic
