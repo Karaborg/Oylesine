@@ -8,7 +8,7 @@
     > To exit from container: `exit`
 - 
 
-> Go to `https://fixer.io/#pricing_plan` and create a free scbscribe. Get the `API_KEY` from there.
+> Go to `https://fixer.io/#pricing_plan` and create a free subscribe. Get the `API_KEY` from there.
 
 ### .env Variables
 ```
@@ -28,5 +28,6 @@ INFLUXDB_MEASUREMENT_NAME=
 # OPENSEARCH CONFIGURATIONS
 OPENSEARCH_INITIAL_ADMIN_PASSWORD=
 
+# FIXER API KEY
 API_KEY=
 ```
