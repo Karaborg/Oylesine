@@ -4,8 +4,19 @@ import time
 import os
 import random
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+url = f"https://data.fixer.io/api/latest?access_key={API_KEY}"
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()  # Parse the response as JSON
+    #print(data)  # Print the response data
+else:
+    print(f"Error: {response.status_code} - {response.text}")
 
 # Kafka broker address
 bootstrap_servers = 'broker:9092'
@@ -28,19 +39,14 @@ i = 0
 try:
     # Send messages continuously
     while True:
-        data = {
-            "id": i,
-            "timestamp": time.time(),
-            "tester": "furkan"
-        }
         # Get a random partition within the specified range
         partition = random.randint(min_partition, (max_partition-1))
         
         # Send the message to the selected partition
         producer.send(topic, value=data, partition=partition)
-        print(f"Sent to partition {partition}: {data}")
+        #print(f"Sent to partition {partition}: {data}")
         i += 1
-        time.sleep(1)  # Adjust the sleep time as needed
+        time.sleep(60)  # Adjust the sleep time as needed
 except KeyboardInterrupt:
     print("Stopping the producer.")
 finally:
