@@ -8,6 +8,7 @@
     > To exit from container: `exit`
 - 
 
+> Go to `https://fixer.io/#pricing_plan` and create a free scbscribe. Get the `API_KEY` from there.
 
 ### .env Variables
 ```
