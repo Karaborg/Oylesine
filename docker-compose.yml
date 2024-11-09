@@ -25,6 +25,8 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    volumes:
+      - ./App-Logs/Broker:/var/log/kafka
   centos:
     container_name: centos
     image: centos
@@ -54,6 +56,7 @@ services:
      - 3000:3000
     volumes:
       - ./Grafana-Storage/grafana.db:/var/lib/grafana/grafana.db
+      - ./App-Logs/Grafana:/var/log/grafana
     command: ["cd", "/usr/share/grafana/bin/", "&&", "grafana-cli", "admin", "reset-admin-password", "${GRAFANA_ADMIN_PASSWORD}"]
   prometheus:
     image: prom/prometheus
@@ -88,30 +91,50 @@ services:
     image: opensearchproject/opensearch
     container_name: opensearch
     environment:
-      - cluster.name=opensearch-cluster # Name the cluster
-      - node.name=opensearch-node # Name the node that will run in this container
-      - discovery.seed_hosts=opensearch-node # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node # Nodes eligible to serve as cluster manager
-      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
-      - ES_JAVA_OPTS= "-Xmx2048m -Xms2048m"
+      - cluster.name=docker-cluster
+      - node.name=opensearch-node
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
       - OPENSEARCH_INITIAL_ADMIN_PASSWORD=${OPENSEARCH_INITIAL_ADMIN_PASSWORD}
+      - discovery.type=single-node
     ulimits:
       memlock:
         soft: -1
         hard: -1
     ports:
-      - 9200:9200
-      - 9600:9600
+      - "9200:9200"
+      - "9600:9600"
     volumes:
       - ./.env:/usr/share/opensearch/.env
+      - ./Opensearch/config/opensearch.yml:/usr/share/opensearch/config/opensearch.yml
     env_file:
       - ./.env
+    command: sh -c "rm -rf /usr/share/opensearch/plugins/opensearch-security && opensearch-plugin remove opensearch-security-analytics && opensearch"
   opensearch-dashboard:
     image: opensearchproject/opensearch-dashboards
     container_name: opensearch-dashboard
     ports:
-      - 5601:5601
+      - "5601:5601"
     depends_on:
       - opensearch
     environment:
-      OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
+      - OPENSEARCH_HOSTS=http://opensearch:9200
+      - OPENSEARCH_SECURITY_DISABLED=true
+    volumes:
+      - ./Opensearch-Dashboard/config/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+    command: sh -c "opensearch-dashboards-plugin remove securityAnalyticsDashboards && opensearch-dashboards-plugin remove securityDashboards && opensearch-dashboards && sleep 5 && rm -rf /usr/share/opensearch-dashboards/plugins/securityAnalyticsDashboards && rm -rf /usr/share/opensearch-dashboards/plugins/securityDashboards && opensearch-dashboards"
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.10.0
+    container_name: logstash
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./Logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./Logstash/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./Logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml
+      - ./Logstash/logstash-sample.conf:/usr/share/logstash/config/logstash-sample.conf
+      - ./App-Logs/Broker:/shared-logs
+    environment:
+      LS_JAVA_OPTS: -Xms1g -Xmx1g
+      OPENSEARCH_HOST: opensearch:9200
+    command: sh -c "bin/logstash-plugin install logstash-output-opensearch && logstash"
