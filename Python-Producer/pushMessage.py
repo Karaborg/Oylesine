@@ -46,7 +46,7 @@ try:
         producer.send(topic, value=data, partition=partition)
         #print(f"Sent to partition {partition}: {data}")
         i += 1
-        time.sleep(60)  # Adjust the sleep time as needed
+        time.sleep(870)  # 14 minutes and 30 seconds.
 except KeyboardInterrupt:
     print("Stopping the producer.")
 finally:
