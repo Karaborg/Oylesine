@@ -41,3 +41,5 @@ PRODUCER_LOG_REPLICA_COUNT=
 # FIXER API KEY
 API_KEY=
 ```
+
+![plot](./Oylesine.drawio.png)
