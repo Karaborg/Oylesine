@@ -22,11 +22,10 @@ else:
 bootstrap_servers = 'broker:9092'
 
 # Kafka topic
-topic = os.getenv("TOPIC_NAME")
+topic = os.getenv("FIXER_TOPIC_NAME")
 
 # Get the max partition number from the environment file
-max_partition = int(os.getenv("PARTITION_COUNT", 0))  # Default to 5 if not set in .env
-min_partition = 0  # Assuming partition range starts from 0
+max_partition = int(os.getenv("FIXER_PARTITION_COUNT", 0))  # Default to 5 if not set in .env
 
 # Create Kafka producer
 producer = KafkaProducer(
@@ -40,11 +39,11 @@ try:
     # Send messages continuously
     while True:
         # Get a random partition within the specified range
-        partition = random.randint(min_partition, (max_partition-1))
+        partition = random.randint(0, (max_partition-1))
         
         # Send the message to the selected partition
         producer.send(topic, value=data, partition=partition)
-        #print(f"Sent to partition {partition}: {data}")
+        print(f"Sent to partition {partition}: {data}")
         i += 1
         time.sleep(870)  # 14 minutes and 30 seconds.
 except KeyboardInterrupt:

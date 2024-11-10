@@ -9,7 +9,7 @@ load_dotenv()
 
 # Kafka settings
 KAFKA_BROKER = 'broker:9092'
-TOPIC = os.getenv("TOPIC_NAME")
+TOPIC = os.getenv("FIXER_TOPIC_NAME")
 
 # InfluxDB settings
 INFLUXDB_HOST = 'influxdb'
