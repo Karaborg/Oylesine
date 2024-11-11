@@ -8,8 +8,8 @@ import requests
 
 load_dotenv()
 
-DUMMY_API_KEY = os.getenv("DUMMY_API_KEY")
-url = f"https://data.fixer.io/api/latest?access_key={DUMMY_API_KEY}"
+DUMMY_API_KEY = os.getenv("API_KEY")
+url = f"https://data.fixer.io/api/latest?access_key=dummyapikey{DUMMY_API_KEY}"
 response = requests.get(url)
 
 if response.status_code == 200:
