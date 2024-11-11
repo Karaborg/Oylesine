@@ -34,7 +34,7 @@ else
   read -p "Enter Grafana Admin Password: " GF_SECURITY_ADMIN_PASSWORD
   GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
 
-  read -p "Enter Kafka Topic Name (default: fixer-incoming): " FIXER_TOPIC_NAME
+  read -p "Enter Kafka Topic Name for fixer (default: fixer-incoming): " FIXER_TOPIC_NAME
   FIXER_TOPIC_NAME=${FIXER_TOPIC_NAME:-fixer-incoming}
 
   read -p "Enter InfluxDB Database Name (default: fixer_db): " INFLUXDB_DB_NAME
@@ -43,13 +43,13 @@ else
   read -p "Enter InfluxDB Measurement Name (default: fixer_table): " INFLUXDB_MEASUREMENT_NAME
   INFLUXDB_MEASUREMENT_NAME=${INFLUXDB_MEASUREMENT_NAME:-fixer_table}
 
-  read -p "Enter Logstash to Kafka Broker Log Topic Name (default: broker-logs): " BROKER_LOG_TOPIC_NAME
+  read -p "Enter Broker Log Topic Name (default: broker-logs): " BROKER_LOG_TOPIC_NAME
   BROKER_LOG_TOPIC_NAME=${BROKER_LOG_TOPIC_NAME:-broker-logs}
 
-  read -p "Enter Logstash to Kafka Zookeeper Log Topic Name (default: zookeeper-logs): " ZOOKEEPER_LOG_TOPIC_NAME
+  read -p "Enter Zookeeper Log Topic Name (default: zookeeper-logs): " ZOOKEEPER_LOG_TOPIC_NAME
   ZOOKEEPER_LOG_TOPIC_NAME=${ZOOKEEPER_LOG_TOPIC_NAME:-zookeeper-logs}
 
-  read -p "Enter Logstash to Kafka Producer Log Topic Name (default: producer-logs): " PRODUCER_LOG_TOPIC_NAME
+  read -p "Enter Producer Log Topic Name (default: producer-logs): " PRODUCER_LOG_TOPIC_NAME
   PRODUCER_LOG_TOPIC_NAME=${PRODUCER_LOG_TOPIC_NAME:-producer-logs}
 
   read -p "Enter Fixer API Key: " API_KEY
