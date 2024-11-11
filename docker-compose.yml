@@ -141,9 +141,9 @@ services:
     env_file:
       - ./.env
     command: sh -c "rm -rf /usr/share/opensearch/plugins/opensearch-security && opensearch-plugin remove opensearch-security-analytics && opensearch"
-  opensearch-dashboard:
+  opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards
-    container_name: opensearch-dashboard
+    container_name: opensearch-dashboards
     ports:
       - "5601:5601"
     depends_on:
@@ -152,7 +152,7 @@ services:
       - OPENSEARCH_HOSTS=http://opensearch:9200
       - OPENSEARCH_SECURITY_DISABLED=true
     volumes:
-      - ./Opensearch-Dashboard/config/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+      - ./Opensearch-Dashboards/config/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     command: sh -c "opensearch-dashboards-plugin remove securityAnalyticsDashboards && opensearch-dashboards-plugin remove securityDashboards && opensearch-dashboards && sleep 5 && rm -rf /usr/share/opensearch-dashboards/plugins/securityAnalyticsDashboards && rm -rf /usr/share/opensearch-dashboards/plugins/securityDashboards && opensearch-dashboards"
   logstash:
     image: docker.elastic.co/logstash/logstash:8.10.0
