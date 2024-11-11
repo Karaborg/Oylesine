@@ -7,7 +7,7 @@ Be aware that since we are using [fixer API](https://fixer.io/), users need to c
 
 Since this project aims to be a playground, it will only have basic integrations and monitoring dashboards. And even unnecessary data flow inside Apache Kafka too.
 
-# Some Container Purposes
+# Container Purposes
 ### Fixer
 - We use [fixer API](https://fixer.io/) to gather currency data into project.
 
