@@ -589,8 +589,8 @@
           "measurement": "fixer_table",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"rate\" FROM \"fixer_table\" WHERE $timeFilter GROUP BY \"currency\"::tag",
-          "rawQuery": false,
+          "query": "SELECT \"rate\" FROM \"fixer_table\" GROUP BY \"currency\"::tag",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -879,6 +879,6 @@
   "timezone": "browser",
   "title": "New dashboard",
   "uid": "ce2ub1ljkvs3kf",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
