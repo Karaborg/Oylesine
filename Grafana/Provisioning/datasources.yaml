@@ -6,15 +6,15 @@ datasources:
     url: http://prometheus:9090
     isDefault: true
     editable: true
+    #uid: prometheus_uid
 
   - name: influxdb
     type: influxdb
     access: proxy
     url: http://influxdb:8086
     database: ${INFLUXDB_DB_NAME}
-    #user: my_user
-    #password: my_password
     jsonData:
       httpMode: POST
       version: InfluxQL
     editable: true
+    uid: P3C6603E967DC8568
