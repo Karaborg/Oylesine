@@ -79,6 +79,19 @@ services:
       - ./.env
     depends_on:
       - broker
+  error-producer:
+    container_name: error-producer
+    build:
+      context: .
+      dockerfile: ./Python-Error-Producer/Dockerfile
+    restart: always
+    volumes:
+      - ./App-Logs/Error-Producer/producer-output.log:/usr/src/app/producer-output.log
+      - ./.env:/usr/src/app/.env
+    env_file:
+      - ./.env
+    depends_on:
+      - broker
   influxdb:
     container_name: influxdb
     image: 'influxdb:1.8'
