@@ -9,6 +9,8 @@ PROJECT_DIR=$(realpath "$SCRIPT_DIR/..")
 # Create the necessary directories if they don't exist
 mkdir -p "$PROJECT_DIR/App-Logs/Producer"
 mkdir -p "$PROJECT_DIR/App-Logs/Error-Producer"
+mkdir -p "$PROJECT_DIR/App-Logs/Broker"
+mkdir -p "$PROJECT_DIR/App-Logs/Zookeeper"
 
 # Create the log files
 touch "$PROJECT_DIR/App-Logs/Producer/producer-output.log"
