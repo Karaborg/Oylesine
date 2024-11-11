@@ -1,46 +1,33 @@
-## Docker Commands
-- To check if any container is running: `docker ps`
-- Check all containers: `docker ps -a`
-- To run docker compose file: `docker compose up -d`
-- To stop docker compose file: `docker compose down`
-- To stop specific container: `docker stop <CONTAINER_ID>/<CONTAINER_NAME>`
-- To connect into container: `docker exec -it <CONTAINER_ID>/<CONTAINER_NAME> bash`
-    > To exit from container: `exit`
-- 
+# Welcome
+This is a project that provides a basic playground for its users to practice some of the monitoring tools such as Grafana, Prometheus, Kafka-UI, and Opensearch while data flows from [fixer API](https://fixer.io/) via Python scripts and Apache Kafka. Other tools including Logstash, Kafka Exporter, and Influx DB are to help integrate this data flow into monitoring tools.
 
-> Go to `https://fixer.io/#pricing_plan` and create a free subscribe. Get the `API_KEY` from there.
+Everything is automated for a basic setup. The only thing the user needs to do is to use the run scripts from `/Run-Scripts` as they want.
 
-### .env Variables
-```
-# GRAFANA CONFIGURATIONS
-GF_SECURITY_ADMIN_USER=
-GF_SECURITY_ADMIN_PASSWORD=
+Be aware that since we are using [fixer API](https://fixer.io/), users need to create an account so they can have an *API_KEY* to use.
 
-# KAFKA CONFIGURATIONS
-FIXER_TOPIC_NAME=
-FIXER_PARTITION_COUNT=
-FIXER_REPLICA_COUNT=
-CONSUMER_GROUP_ID=
+Since this project aims to be a playground, it will only have basic integrations and monitoring dashboards. And even unnecessary data flow inside Apache Kafka too.
 
-# INFLUX CONFIGURATIONS
-INFLUXDB_DB_NAME=
-INFLUXDB_MEASUREMENT_NAME=
+# Some Container Purposes
+### Fixer
+- We use [fixer API](https://fixer.io/) to gather currency data into project.
 
-# LOGSTASH to KAFKA CONFIGURATIONS
-BROKER_LOG_TOPIC_NAME=
-BROKER_LOG_PARTITION_COUNT=
-BROKER_LOG_REPLICA_COUNT=
+### Producer
+- Inside this container, we have a Python script that gets the data from the API and pushes it into Apache Kafka.
 
-ZOOKEEPER_LOG_TOPIC_NAME=
-ZOOKEEPER_LOG_PARTITION_COUNT=
-ZOOKEEPER_LOG_REPLICA_COUNT=
+### Error Producer
+- This is added only to creating some error logs, so users can practice on error logs too.
 
-PRODUCER_LOG_TOPIC_NAME=
-PRODUCER_LOG_PARTITION_COUNT=
-PRODUCER_LOG_REPLICA_COUNT=
+### Consumer
+- Another Python container to consume data from Apache Kafka and insert the data into Influx DB, so we can monitor the actual table from Grafana.
 
-# FIXER API KEY
-API_KEY=
-```
+### Centos
+- This container has a [kafka_exporter](https://github.com/danielqsj/kafka_exporter) volume so when it runs, we also automatically get Apache Kafka metrics for Prometheus.
+
+Other containers such as *Zookeeper*, *Broker*, *Kafka-UI*, *Grafana*, *Prometheus*, *InfluxDB*, *Opensearch*, *Opensearch-Dashboards* and *Logstash* are only the applications themselves, with prefixed integrations.
 
 ![plot](./Oylesine.drawio.png)
+
+# Environment File
+All the environment parameters are accessible inside the `.env` file.
+
+
