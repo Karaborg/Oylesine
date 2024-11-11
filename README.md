@@ -7,7 +7,14 @@ Be aware that since we are using [fixer API](https://fixer.io/), users need to c
 
 Since this project aims to be a playground, it will only have basic integrations and monitoring dashboards. And even unnecessary data flow inside Apache Kafka too.
 
-# Container Purposes
+# How to Start
+Clone the project and make sure your docker is running. Once you set up everything, you can run `/Run-Scripts/start-all.sh` to start everything.
+
+Once you run the `/Run-Scripts/start-all.sh` script, it will ask you a couple of questions to create a `.env` file for you. You can use the defaults by pressing the enter button or modify it however you want. 
+
+> Make sure to give an actual *API_KEY* from [fixer API](https://fixer.io/).
+
+# Good to Know
 ### Fixer
 - We use [fixer API](https://fixer.io/) to gather currency data into project.
 
@@ -27,14 +34,5 @@ Other containers such as *Zookeeper*, *Broker*, *Kafka-UI*, *Grafana*, *Promethe
 
 ![plot](./Oylesine.drawio.png)
 
-# How to Start
-Clone the project and make sure your docker is running. Once you set up everything, you can run `/Run-Scripts/start-all.sh` to start everything.
-
-Once you run the `/Run-Scripts/start-all.sh` script, it will ask you a couple of questions to create a `.env` file for you. You can use the defaults by pressing the enter button or modify it however you want. 
-
-> Make sure to give an actual *API_KEY* from [fixer API](https://fixer.io/).
-
 # Environment File
 All the environment parameters are accessible inside the `.env` file.
-
-
