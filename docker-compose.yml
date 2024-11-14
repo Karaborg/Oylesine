@@ -176,3 +176,13 @@ services:
       LS_JAVA_OPTS: -Xms1g -Xmx1g
       OPENSEARCH_HOST: opensearch:9200
     entrypoint: /usr/share/logstash/start-logstash.sh
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.16.0
+    container_name: filebeat
+    user: root
+    volumes:
+      - ./Filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./Filebeat/filebeat.reference.yml:/usr/share/filebeat/filebeat.reference.yml
+      - ./App-Logs:/shared-logs
+      - ./Filebeat/start-filebeat.sh:/usr/share/filebeat/start-filebeat.sh
+    entrypoint: /usr/share/filebeat/start-filebeat.sh
