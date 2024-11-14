@@ -92,6 +92,7 @@ fi
 
 # Chmod to scripts
 chmod 777 $PROJECT_DIR/Centos/start-kafka-exporter.sh
+chmod 777 $PROJECT_DIR/Centos/kafka_exporter
 chmod 777 $PROJECT_DIR/Kafka/waitForKafka.py
 chmod 777 $PROJECT_DIR/Logstash/scripts/start-logstash.sh
 chmod 777 $PROJECT_DIR/Opensearch/scripts/start-opensearch.sh

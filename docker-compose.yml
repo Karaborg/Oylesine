@@ -38,7 +38,7 @@ services:
       - broker
     volumes:
       - type: bind
-        source: ./kafka_exporter
+        source: ./Centos/kafka_exporter
         target: /home/appuser/kafka_exporter
       - type: bind
         source: ./Centos/start-kafka-exporter.sh
