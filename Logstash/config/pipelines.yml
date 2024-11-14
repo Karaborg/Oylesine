@@ -16,3 +16,6 @@
 
 - pipeline.id: filebeat
   path.config: "/usr/share/logstash/config/logstash-filebeat.conf"
+
+- pipeline.id: kafka
+  path.config: "/usr/share/logstash/config/logstash-kafka.conf"
