@@ -40,7 +40,10 @@ services:
       - type: bind
         source: ./kafka_exporter
         target: /home/appuser/kafka_exporter
-    command: sh -c "sleep 15 && /home/appuser/kafka_exporter --kafka.server=broker:9092 --kafka.version=3.3.1 --log.enable-sarama"
+      - type: bind
+        source: ./Centos/start-kafka-exporter.sh
+        target: /home/appuser/start-kafka-exporter.sh
+    entrypoint: /home/appuser/start-kafka-exporter.sh
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
@@ -138,9 +141,10 @@ services:
     volumes:
       - ./.env:/usr/share/opensearch/.env
       - ./Opensearch/config/opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+      - ./Opensearch/scripts/start-opensearch.sh:/usr/share/opensearch/start-opensearch.sh
     env_file:
       - ./.env
-    command: sh -c "rm -rf /usr/share/opensearch/plugins/opensearch-security && opensearch-plugin remove opensearch-security-analytics && opensearch"
+    entrypoint: /usr/share/opensearch/start-opensearch.sh
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards
     container_name: opensearch-dashboards
@@ -153,7 +157,8 @@ services:
       - OPENSEARCH_SECURITY_DISABLED=true
     volumes:
       - ./Opensearch-Dashboards/config/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
-    command: sh -c "opensearch-dashboards-plugin remove securityAnalyticsDashboards && opensearch-dashboards-plugin remove securityDashboards && opensearch-dashboards && sleep 5 && rm -rf /usr/share/opensearch-dashboards/plugins/securityAnalyticsDashboards && rm -rf /usr/share/opensearch-dashboards/plugins/securityDashboards && opensearch-dashboards"
+      - ./Opensearch-Dashboards/scripts/start-opensearch-dashboards.sh:/usr/share/opensearch-dashboards/start-opensearch-dashboards.sh
+    entrypoint: /usr/share/opensearch-dashboards/start-opensearch-dashboards.sh
   logstash:
     image: docker.elastic.co/logstash/logstash:8.10.0
     container_name: logstash
@@ -165,19 +170,9 @@ services:
       - ./Logstash/config/logstash-broker.conf:/usr/share/logstash/config/logstash-broker.conf
       - ./Logstash/config/logstash-zookeeper.conf:/usr/share/logstash/config/logstash-zookeeper.conf
       - ./Logstash/config/logstash-producer.conf:/usr/share/logstash/config/logstash-producer.conf
+      - ./Logstash/scripts/start-logstash.sh:/usr/share/logstash/start-logstash.sh
       - ./App-Logs:/shared-logs
     environment:
       LS_JAVA_OPTS: -Xms1g -Xmx1g
       OPENSEARCH_HOST: opensearch:9200
-    entrypoint: >
-      bash -c "
-
-      if ! bin/logstash-plugin list --verbose | grep -q 'logstash-output-opensearch'; then
-        echo 'logstash-output-opensearch plugin not found. Installing...';
-        echo 'this will approximately take 5 minutes depending on your machine.'
-        bin/logstash-plugin install logstash-output-opensearch;
-      else
-        echo 'logstash-output-opensearch plugin is already installed.';
-      fi
-      
-      bin/logstash"
+    entrypoint: /usr/share/logstash/start-logstash.sh

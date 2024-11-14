@@ -90,6 +90,12 @@ EOL
   echo ".env file created successfully at $ENV_FILE"
 fi
 
+# Chmod to scripts
+chmod 777 $PROJECT_DIR/Centos/start-kafka-exporter.sh
+chmod 777 $PROJECT_DIR/Kafka/waitForKafka.py
+chmod 777 $PROJECT_DIR/Logstash/scripts/start-logstash.sh
+chmod 777 $PROJECT_DIR/Opensearch/scripts/start-opensearch.sh
+chmod 777 $PROJECT_DIR/Opensearch-Dashboards/scripts/start-opensearch-dashboards.sh
 
 # Build and run containers in detached mode
 cd $PROJECT_DIR && docker compose up -d --build
