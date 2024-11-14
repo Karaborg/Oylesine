@@ -170,6 +170,7 @@ services:
       - ./Logstash/config/logstash-broker.conf:/usr/share/logstash/config/logstash-broker.conf
       - ./Logstash/config/logstash-zookeeper.conf:/usr/share/logstash/config/logstash-zookeeper.conf
       - ./Logstash/config/logstash-producer.conf:/usr/share/logstash/config/logstash-producer.conf
+      - ./Logstash/config/logstash-filebeat.conf:/usr/share/logstash/config/logstash-filebeat.conf
       - ./Logstash/scripts/start-logstash.sh:/usr/share/logstash/start-logstash.sh
       - ./App-Logs:/shared-logs
     environment:
@@ -182,7 +183,6 @@ services:
     user: root
     volumes:
       - ./Filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ./Filebeat/filebeat.reference.yml:/usr/share/filebeat/filebeat.reference.yml
       - ./App-Logs:/shared-logs
       - ./Filebeat/start-filebeat.sh:/usr/share/filebeat/start-filebeat.sh
     entrypoint: /usr/share/filebeat/start-filebeat.sh

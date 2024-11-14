@@ -13,3 +13,6 @@
 
 - pipeline.id: producer
   path.config: "/usr/share/logstash/config/logstash-producer.conf"
+
+- pipeline.id: filebeat
+  path.config: "/usr/share/logstash/config/logstash-filebeat.conf"
