@@ -1,13 +1,22 @@
-filebeat.config:
-  modules:
-    path: ${path.config}/modules.d/*.yml
-    reload.enabled: false
+#filebeat.config:
+#  modules:
+#    path: ${path.config}/modules.d/*.yml
+#    reload.enabled: false
+#
+#processors:
+#  - add_cloud_metadata: ~
+#  - add_docker_metadata: ~
+#
+#output.elasticsearch:
+#  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+#  username: '${ELASTICSEARCH_USERNAME:}'
+#  password: '${ELASTICSEARCH_PASSWORD:}'
 
-processors:
-  - add_cloud_metadata: ~
-  - add_docker_metadata: ~
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /shared-logs/Producer/*.log  # Specify your log file paths
 
-output.elasticsearch:
-  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
-  username: '${ELASTICSEARCH_USERNAME:}'
-  password: '${ELASTICSEARCH_PASSWORD:}'
+output.logstash:
+  hosts: ["logstash:5044"]  # Replace <logstash-host> with Logstash's IP/hostname
