@@ -38,6 +38,7 @@ Other containers such as *Zookeeper*, *Broker*, *Kafka-UI*, *Grafana*, *Promethe
 All the environment parameters are accessible inside the `.env` file.
 
 # Application URL's
+Once you installed the project and run it, you can access monitoring applications via below links:
 
 - [Grafana](http://localhost:3000/)
 
