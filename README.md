@@ -30,9 +30,20 @@ Once you run the `/Run-Scripts/start-all.sh` script, it will ask you a couple of
 ### Centos
 - This container has a [kafka_exporter](https://github.com/danielqsj/kafka_exporter) volume so when it runs, we also automatically get Apache Kafka metrics for Prometheus.
 
-Other containers such as *Zookeeper*, *Broker*, *Kafka-UI*, *Grafana*, *Prometheus*, *InfluxDB*, *Opensearch*, *Opensearch-Dashboards* and *Logstash* are only the applications themselves, with prefixed integrations.
+Other containers such as *Zookeeper*, *Broker*, *Kafka-UI*, *Grafana*, *Prometheus*, *InfluxDB*, *Opensearch*, *Opensearch-Dashboards*, *Logstash* and *Filebeat* are only the applications themselves, with prefixed integrations.
 
 ![plot](./Oylesine.drawio.png)
 
 # Environment File
 All the environment parameters are accessible inside the `.env` file.
+
+# Application URL's
+
+- [Grafana](http://localhost:3000/)
+
+- [Prometheus](http://localhost:9090/)
+
+- [Kafka-UI](http://localhost:8080/)
+
+- [Opensearch](http://localhost:5601/)
+
