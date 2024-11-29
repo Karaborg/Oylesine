@@ -123,7 +123,7 @@ services:
     env_file:
       - ./.env
   opensearch:
-    image: opensearchproject/opensearch
+    image: opensearchproject/opensearch:2.17.1
     container_name: opensearch
     environment:
       - cluster.name=docker-cluster
@@ -146,7 +146,7 @@ services:
       - ./.env
     entrypoint: /usr/share/opensearch/start-opensearch.sh
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards
+    image: opensearchproject/opensearch-dashboards:2.17.1
     container_name: opensearch-dashboards
     ports:
       - "5601:5601"
