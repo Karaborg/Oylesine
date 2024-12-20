@@ -36,3 +36,7 @@ scrape_configs:
     static_configs:
     - targets:
       - opensearch:9200
+  - job_name: pushgateway
+    honor_labels: true  # Preserves job and instance labels pushed by clients
+    static_configs:
+      - targets: ["pushgateway:9091"]

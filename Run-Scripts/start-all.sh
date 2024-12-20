@@ -100,3 +100,12 @@ chmod 777 $PROJECT_DIR/Opensearch-Dashboards/scripts/start-opensearch-dashboards
 
 # Build and run containers in detached mode
 cd $PROJECT_DIR && docker compose up -d --build
+
+# Start the monitoring script in the background
+echo "Starting monitoring script..."
+nohup $SCRIPT_DIR/docker-stats-push.sh > $PROJECT_DIR/docker-stats-push.log 2>&1 &
+
+# Save the process ID (PID) of the monitoring script
+echo $! > $SCRIPT_DIR/docker-stats-push.pid
+
+echo "Docker project and monitoring script started."
